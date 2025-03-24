@@ -5,31 +5,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 10px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: blue;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+            word-wrap: break-word;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        /* Responsive Table */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        @media screen and (max-width: 600px) {
+            table {
+                width: 100%;
+                display: block;
+                overflow-x: auto;
+            }
+
+            th, td {
+                display: block;
+                width: 100%;
+                text-align: left;
+            }
+
+            tr {
+                display: block;
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+            }
+
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                font-weight: bold;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
     <h2>Contact List</h2>
-    <a href="conactForm/">Add New Contact</a> <br><br>
-    <table border="1">
-        <tr>
-            <th>Name</th>
-            <th>Mobile</th>
-            <th>Email</th>
-            <th>Actions</th>
-        </tr>
-        {% for contact in contacts %}
-        <tr>
-            <td>{{contact.name}}</td>
-            <td>{{contact.mobile}}</td>
-            <td>{{contact.gmail}}</td>
-            <td>
-                <a href="#">Edit</a> |
-                <a href="#">Delete</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+    <a href="contactForm/">Add New Contact</a> <br><br>
+
+    <div class="table-container">
+        <table border="1">
+            <tr>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+            {% for contact in contacts %}
+            <tr>
+                <td data-label="Name">{{ contact.name }}</td>
+                <td data-label="Mobile">{{ contact.mobile }}</td>
+                <td data-label="Email">{{ contact.gmail }}</td>
+                <td data-label="Actions">
+                    <a href="#">Edit</a> |
+                    <a href="#">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
 </body>
 
 </html>
