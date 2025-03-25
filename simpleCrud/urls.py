@@ -21,6 +21,8 @@ from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index),
+    path('', views.index, name='index'),
     path('contactForm/', views.contactForm),
+    path('update/<int:id>/', views.update_contact, name='update_contact'),
+    path('delete/<int:id>/', views.delete_contact, name='delete_contact'),
 ]

@@ -18,3 +18,19 @@ def contactForm(request):
         return redirect('/')
     return render(request, 'ContactForm.html')
 
+# Update a contact
+def update_contact(request, id):
+    contact = Contact.objects.get(id=id)
+    if request.method == "POST":
+        contact.name = request.POST['name']
+        contact.mobile = request.POST['mobile']
+        contact.gmail = request.POST['gmail']
+        contact.save()
+        return redirect('/')
+    return render(request, 'ContactForm.html', {'contact': contact})
+
+# Delete a contact
+def delete_contact(request, id):
+    contact = Contact.objects.get(id=id)
+    contact.delete()
+    return redirect('/')
