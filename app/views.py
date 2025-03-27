@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 
+from app.forms import ContactForm
 from app.models import Contact
 
 # Create your views here.
@@ -10,24 +11,28 @@ def index(request):
 
 # Create a new contact
 def contactForm(request):
+    form = ContactForm(request.POST)
+    
     if request.method == "POST":
-        name = request.POST['name']
-        mobile = request.POST['mobile']
-        gmail = request.POST['gmail']
-        Contact.objects.create(name=name, mobile=mobile, gmail=gmail)
-        return redirect('/')
-    return render(request, 'ContactForm.html')
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+        
+    return render(request, 'ContactForm.html', {'form': form})
 
 # Update a contact
 def update_contact(request, id):
     contact = Contact.objects.get(id=id)
+    form = ContactForm(instance=contact)
+
     if request.method == "POST":
-        contact.name = request.POST['name']
-        contact.mobile = request.POST['mobile']
-        contact.gmail = request.POST['gmail']
-        contact.save()
-        return redirect('/')
-    return render(request, 'ContactForm.html', {'contact': contact})
+        form = ContactForm(request.POST, instance=contact)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    
+    return render(request, 'ContactForm.html', {'form': form})
 
 # Delete a contact
 def delete_contact(request, id):

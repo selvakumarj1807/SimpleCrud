@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -92,24 +93,23 @@
         }
     </style>
 </head>
+
 <body>
 
     <h2>{% if contact %}Edit Contact{% else %}Add Contact{% endif %}</h2>
     <form method="POST">
         {% csrf_token %}
         <label>Name:</label>
-        <input type="text" name="name" value="{{ contact.name|default:'' }}" required>
-
+        {{form.name}}
         <label>Mobile:</label>
-        <input type="text" name="mobile" value="{{ contact.mobile|default:'' }}" required>
-
+        {{form.mobile}}
         <label>Email:</label>
-        <input type="email" name="gmail" value="{{ contact.gmail|default:'' }}" required>
-
+        {{form.gmail}}
         <button type="submit">Save</button>
     </form>
 
     <a href="/">Back to List</a>
 
 </body>
+
 </html>
